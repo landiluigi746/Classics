@@ -12,12 +12,12 @@ namespace Classics
         texture.SetHeight(textureSize);
     }
 
-    void InvadersGame::Invader::Move() noexcept
+    void InvadersGame::Invader::Move(float speed) noexcept
     {
         switch(_dir)
         {
-            case Direction::LEFT:   pos.x -= invadersSpeed; break;
-            case Direction::RIGHT:  pos.x += invadersSpeed; break;
+            case Direction::LEFT:   pos.x -= speed; break;
+            case Direction::RIGHT:  pos.x += speed; break;
         }
 
         return;

@@ -84,7 +84,7 @@ namespace Classics
                     Invader(): GameObjectTexturized{-1, -1, TEXTURES_PATH(spaceinvaders) + "invader1.png"} {}
                     Invader(float x, float y, int score, rl::Texture2D&& texture);
 
-                    void Move() noexcept;
+                    void Move(float speed = invadersSpeed) noexcept;
                     virtual void Draw() const override;
                     void ChangeFrame() noexcept;
                     void GoForward() noexcept;

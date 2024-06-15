@@ -39,7 +39,7 @@ namespace Classics
     {
         {
             backgroundMusic.Update();
-            
+
             player.Move();
             playerBullet.Move();
             BulletsBehavior();
@@ -57,7 +57,11 @@ namespace Classics
 
             if(GetTime() >= curr_time + tick)
             {
-                curr_time = GetTime();    
+                curr_time = GetTime();
+
+                if((float)(rand() % 100) < level * 0.1f && specialInvader.pos.x < 0)
+                    specialInvader = Invader(0, gameBounds.y + offset, scores[3], TEXTURES_PATH(spaceinvaders) + "invader4.png");
+
                 InvadersShoot();
                 Animations();
                 Sounds();
@@ -96,7 +100,7 @@ namespace Classics
             DrawObjects(invadersBullets);
             DrawObjects(barriers);
 
-            if(specialInvader.pos.x + textureSize > gameBounds.x && specialInvader.pos.x < gameBounds.z)
+            if(specialInvader.pos.x + textureSize > gameBounds.x && specialInvader.pos.x + textureSize < gameBounds.z)
                 specialInvader.Draw();
         }
 
@@ -108,6 +112,9 @@ namespace Classics
     void InvadersGame::End()
     {
         backgroundMusic.Stop();
+
+        for(auto& sound: sounds)
+            sound.Stop();
 
         rl::Text text{::GetFontDefault(), "You lost", 30, spacing, rl::Color::RayWhite()};
         rl::Vector2 textDim{text.MeasureEx()};

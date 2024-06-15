@@ -70,15 +70,22 @@ namespace Classics
                 sounds[3].Play();
                 playerBullet.Reset();
                 invader = invaders.erase(invader);
-                invadersSpeed += 1 / invaders.size();
+                invadersSpeed += 2 / invaders.size();
             }
         }
 
-        if(specialInvader.pos.x > windowWidth)
-            specialInvader.pos.x = -1;
+        if(specialInvader.pos.x >= 0 & playerBullet.Collision(specialInvader.GetRect()))
+        {
+            player.GainScore(specialInvader.GetScore());
+            sounds[3].Play();
+            playerBullet.Reset();
+        }
 
-        if((float)(rand() % 100) < level * 9.5f && specialInvader.pos.x < 0)
-            specialInvader = Invader(-1, gameBounds.y + offset, scores[3], TEXTURES_PATH(spaceinvaders) + "invader4.png");
+        if(specialInvader.pos.x > windowWidth)
+            specialInvader.pos = rl::Vector2{-1, -1};
+        
+        if(specialInvader.pos.x >= 0)
+            specialInvader.Move(3.5f);
 
         return;
     }
