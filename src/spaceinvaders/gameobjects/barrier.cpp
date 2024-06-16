@@ -5,7 +5,9 @@ namespace Classics
     InvadersGame::Barrier::Barrier(float x, float y):
         GameObject{x, y}
     {
-        for(int i = 0; i < barrierHeight; i++)
+        auto height = baseBarrier.size();
+
+        for(int i = 0; i < height; i++)
             for(int j = 0; j < barrierWidth; j++)
                 _blocks.emplace_back((baseBarrier[i][j]) ? rl::Vector2{x + j * blockDim.x, y + i * blockDim.y} : rl::Vector2{-1, -1});
     }

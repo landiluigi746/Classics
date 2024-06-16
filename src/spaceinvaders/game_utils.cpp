@@ -59,7 +59,7 @@ namespace Classics
         for(auto invader = invaders.begin(); invader != invaders.end();)
         {
             invader->Move();
-            if(!playerBullet.Collision(invader->GetRect()))
+            if(!playerBullet.CheckCollision(invader->GetRect()))
             {
                 invader->Move();
                 ++invader;
@@ -67,17 +67,17 @@ namespace Classics
             else
             {
                 player.GainScore(invader->GetScore());
-                sounds[3].Play();
+                invaderKilledSound.Play();
                 playerBullet.Reset();
                 invader = invaders.erase(invader);
                 invadersSpeed += 2 / invaders.size();
             }
         }
 
-        if(specialInvader.pos.x >= 0 & playerBullet.Collision(specialInvader.GetRect()))
+        if(specialInvader.pos.x >= 0 & playerBullet.CheckCollision(specialInvader.GetRect()))
         {
             player.GainScore(specialInvader.GetScore());
-            sounds[3].Play();
+            invaderKilledSound.Play();
             playerBullet.Reset();
         }
 
@@ -94,10 +94,10 @@ namespace Classics
     {
         for(auto bullet = invadersBullets.begin(); bullet != invadersBullets.end();)
         {
-            bool playerHit = bullet->Collision(player.GetRect());
-            bool playerBulletCollision = bullet->Collision(playerBullet.rect);
+            bool playerHit = bullet->CheckCollision(player.GetRect());
+            bool playerBulletCollision = bullet->CheckCollision(playerBullet.rect);
 
-            if(!bullet->Out() && !playerHit && !playerBulletCollision)
+            if(!bullet->IsOut() && !playerHit && !playerBulletCollision)
             {
                 bullet->Move();
                 ++bullet;
@@ -112,7 +112,7 @@ namespace Classics
                 
                 if(playerHit)
                 {
-                    sounds[2].Play();
+                    playerDeathSound.Play();
                     Wait(1000);
                     playerBullet.Reset();
                     invadersBullets.clear();
@@ -135,7 +135,7 @@ namespace Classics
             if(rng < 2 + level + (1 / invaders.size()))
             {
                 invadersBullets.emplace_back(invader.pos.x + textureSize / 2, invader.pos.y + textureSize, Direction::DOWN);
-                sounds[0].Play();
+                shootSound.Play();
             }
         }
 
@@ -150,7 +150,7 @@ namespace Classics
 
             for(auto block = blocks.begin(); block != blocks.end();)
             {
-                if(playerBullet.Collision(rl::Rectangle{block->x, block->y, blockDim.x, blockDim.y}))
+                if(playerBullet.CheckCollision(rl::Rectangle{block->x, block->y, blockDim.x, blockDim.y}))
                 {
                     block = blocks.erase(block);
                     playerBullet.Reset();
@@ -165,7 +165,7 @@ namespace Classics
 
                 for(auto block = blocks.begin(); block != blocks.end();)
                 {
-                    if(bullet->Collision(rl::Rectangle{block->x, block->y, bulletDim.x, bulletDim.y}))
+                    if(bullet->CheckCollision(rl::Rectangle{block->x, block->y, bulletDim.x, bulletDim.y}))
                     {
                         block = blocks.erase(block);
                         bullet->Reset();
@@ -213,6 +213,6 @@ namespace Classics
     void InvadersGame::Sounds()
     {
         if(specialInvader.pos.x > 0)
-            sounds[1].Play();
+            specialInvaderSound.Play();
     }
 } // namespace Classics

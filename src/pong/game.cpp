@@ -2,7 +2,9 @@
 
 namespace Classics
 {
-    std::vector<rl::Sound> PongGame::sounds = std::vector<rl::Sound>();
+    rl::Sound PongGame::paddleHitSound = rl::Sound{};
+    rl::Sound PongGame::wallHitSound = rl::Sound{};
+    rl::Sound PongGame::scoreSound = rl::Sound{};
 
     void PongGame::Start()
     {
@@ -10,11 +12,9 @@ namespace Classics
         player1 = Paddle(gameBox.x + boxThickness, center.y - paddleHeight / 2, KEY_W, KEY_S);
         player2 = Paddle(gameBox.x + gameBox.width - paddleWidth - boxThickness, center.y - paddleHeight / 2, KEY_UP, KEY_DOWN);
 
-        sounds.resize(3);
-
-        sounds[0] = rl::Sound{SOUNDS_PATH(pong) + "paddle_hit.ogg"};
-        sounds[1] = rl::Sound{SOUNDS_PATH(pong) + "wall_hit.ogg"};
-        sounds[2] = rl::Sound{SOUNDS_PATH(pong) + "score.ogg"};
+        paddleHitSound = rl::Sound{SOUNDS_PATH(pong) + "paddle_hit.ogg"};
+        wallHitSound = rl::Sound{SOUNDS_PATH(pong) + "wall_hit.ogg"};
+        scoreSound = rl::Sound{SOUNDS_PATH(pong) + "score.ogg"};
 
         return;
     }
@@ -29,9 +29,9 @@ namespace Classics
             player1.Move();
             player2.Move();
 
-            if(ball.Out())
+            if(ball.IsOut())
             {
-                if(ball.OutLeft())
+                if(ball.IsOutLeft())
                     player2.IncrementScore();
                 else
                     player1.IncrementScore();
@@ -40,7 +40,7 @@ namespace Classics
                 player1.Reset();
                 player2.Reset();
 
-                sounds[2].Play();
+                scoreSound.Play();
                 Wait(1000);
             }
 

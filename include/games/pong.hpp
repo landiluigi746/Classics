@@ -20,7 +20,9 @@ namespace Classics
             static constexpr int ballSize = 20;
             static constexpr float ballSpeed = 9.5f;
             
-            static std::vector<rl::Sound> sounds;
+            static rl::Sound paddleHitSound;
+            static rl::Sound wallHitSound;
+            static rl::Sound scoreSound;
 
             virtual void Start() override;
             virtual bool Update() override;
@@ -52,8 +54,8 @@ namespace Classics
 
                     void Move() noexcept;
                     void Reset() noexcept;
-                    bool Out() const noexcept;
-                    bool OutLeft() const noexcept;
+                    bool IsOut() const noexcept;
+                    bool IsOutLeft() const noexcept;
                     void Collision(const Paddle& paddle) noexcept;
                 
                 private:

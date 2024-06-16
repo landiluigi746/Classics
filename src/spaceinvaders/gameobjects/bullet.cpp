@@ -27,7 +27,7 @@ namespace Classics
         return;
     }
 
-    bool InvadersGame::Bullet::Out() const noexcept { return (pos.y < gameBounds.y || pos.y > gameBounds.w); }
+    bool InvadersGame::Bullet::IsOut() const noexcept { return (pos.y < gameBounds.y || pos.y > gameBounds.w); }
 
     void InvadersGame::Bullet::ChangeFrame() noexcept
     {
@@ -35,7 +35,7 @@ namespace Classics
         return;
     }
 
-    bool InvadersGame::Bullet::Collision(const rl::Rectangle& other) const
+    bool InvadersGame::Bullet::CheckCollision(const rl::Rectangle& other) const
     {
         return (rect.CheckCollision(other));
     }

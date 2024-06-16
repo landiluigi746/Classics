@@ -17,8 +17,6 @@ namespace Classics
 
         private:
             static constexpr int textureSize = 48;
-            static constexpr int barrierWidth = 32;
-            static constexpr int barrierHeight = 10;
             static constexpr double defaultTick = 0.4f;
 
             static constexpr int rowInvaders = (boxWidth - offset) / (textureSize * 2);
@@ -27,19 +25,10 @@ namespace Classics
             static constexpr float bulletSpeed = 6.0f;
             static constexpr float defaultInvadersSpeed = 0.2f;
             static constexpr int scores[] = {10, 25, 40, 120};
-            static constexpr bool baseBarrier[barrierHeight][barrierWidth] = {
-                {0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0},
-                {0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0},
-                {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0},
-                {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-            };
 
+            static std::vector<std::vector<bool>> baseBarrier;
+            static int barrierWidth;
+            static int barrierHeight;
             static double tick;
             static float invadersSpeed;
 
@@ -105,9 +94,9 @@ namespace Classics
 
                     void Move() noexcept;
                     void Reset();
-                    bool Out() const noexcept;
+                    bool IsOut() const noexcept;
                     void ChangeFrame() noexcept;
-                    bool Collision(const rl::Rectangle& other) const;
+                    bool CheckCollision(const rl::Rectangle& other) const;
 
                 private:
                     int _frame;
@@ -132,8 +121,12 @@ namespace Classics
             int level;
             rl::Texture2D background;
             rl::Texture2D backgroundBuildings;
+
             rl::Music backgroundMusic;
-            std::vector<rl::Sound> sounds;
+            rl::Sound shootSound;
+            rl::Sound specialInvaderSound;
+            rl::Sound playerDeathSound;
+            rl::Sound invaderKilledSound;
 
             Player player;
             Bullet playerBullet;

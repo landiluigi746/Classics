@@ -8,10 +8,8 @@ namespace Classics
         fruit = Fruit(snake);
         curr_time = GetTime();
 
-        sounds.resize(2);
-
-        sounds[0] = rl::Sound{SOUNDS_PATH(snake) + "food_eat.ogg"};
-        sounds[1] = rl::Sound{SOUNDS_PATH(snake) + "death.ogg"};
+        foodEatSound = rl::Sound{SOUNDS_PATH(snake) + "food_eat.ogg"};
+        deathSound = rl::Sound{SOUNDS_PATH(snake) + "death.ogg"};
 
         p_window.SetTargetFPS(60);
 
@@ -28,7 +26,7 @@ namespace Classics
 
                 if(snake.pos == fruit.pos)
                 {
-                    sounds[0].Play();
+                    foodEatSound.Play();
                     fruit.ChangePos(snake);
 
                     if(snake.GetScore() < rowCells * colCells)
@@ -37,7 +35,7 @@ namespace Classics
 
                 if(snake.WallCollision() || snake.SelfCollision())
                 {
-                    sounds[1].Play();
+                    deathSound.Play();
                     return false;
                 }
             }

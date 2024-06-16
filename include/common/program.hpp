@@ -16,7 +16,7 @@ namespace Classics
             {
                 LoadingScreen();
                 Start();
-                while(Update());
+                while(Update() && !p_window.ShouldClose());
                 End();
 
                 return;
@@ -42,7 +42,7 @@ namespace Classics
 
                 rl::Rectangle progress_bar{{starting_pos.x, starting_pos.y + 28}, {0, 28}};
 
-                while(progress_bar.width < textWidth)
+                while(progress_bar.width < textWidth && !p_window.ShouldClose())
                 {
                     p_window.BeginDrawing();
 

@@ -4,6 +4,22 @@ namespace Classics
 {
     double InvadersGame::tick = InvadersGame::defaultTick;
     float InvadersGame::invadersSpeed = InvadersGame::defaultInvadersSpeed;
+    
+    std::vector<std::vector<bool>> InvadersGame::baseBarrier = {
+        {0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0},
+        {0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0},
+        {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0},
+        {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+    };
+
+    int InvadersGame::barrierWidth = baseBarrier[0].size();
+    int InvadersGame::barrierHeight = baseBarrier.size();
 
     void InvadersGame::Start()
     {
@@ -21,12 +37,10 @@ namespace Classics
         backgroundMusic = rl::Music{SOUNDS_PATH(spaceinvaders) + "music.mp3"};
         backgroundMusic.Play();
 
-        sounds.resize(4);
-
-        sounds[0] = rl::Sound{SOUNDS_PATH(spaceinvaders) + "shoot.ogg"};
-        sounds[1] = rl::Sound{SOUNDS_PATH(spaceinvaders) + "special_invader.ogg"};
-        sounds[2] = rl::Sound{SOUNDS_PATH(spaceinvaders) + "player_death.ogg"};
-        sounds[3] = rl::Sound{SOUNDS_PATH(spaceinvaders) + "invader_killed.ogg"};
+        shootSound = rl::Sound{SOUNDS_PATH(spaceinvaders) + "shoot.ogg"};
+        specialInvaderSound = rl::Sound{SOUNDS_PATH(spaceinvaders) + "special_invader.ogg"};
+        playerDeathSound = rl::Sound{SOUNDS_PATH(spaceinvaders) + "player_death.ogg"};
+        invaderKilledSound = rl::Sound{SOUNDS_PATH(spaceinvaders) + "invader_killed.ogg"};
 
         player = Player(center.x, boxHeight);
 
@@ -49,10 +63,10 @@ namespace Classics
             if(invaders.size() <= 0)
                 InitLevel();
 
-            if(IsKeyDown(KEY_SPACE) && playerBullet.Out())
+            if(IsKeyDown(KEY_SPACE) && playerBullet.IsOut())
             {
                 playerBullet.SetPos({player.pos.x + textureSize / 2, player.pos.y - textureSize});
-                sounds[0].Play();
+                shootSound.Play();
             }
 
             if(GetTime() >= curr_time + tick)
@@ -113,8 +127,10 @@ namespace Classics
     {
         backgroundMusic.Stop();
 
-        for(auto& sound: sounds)
-            sound.Stop();
+        shootSound.Stop();
+        specialInvaderSound.Stop();
+        playerDeathSound.Stop();
+        invaderKilledSound.Stop();
 
         rl::Text text{::GetFontDefault(), "You lost", 30, spacing, rl::Color::RayWhite()};
         rl::Vector2 textDim{text.MeasureEx()};

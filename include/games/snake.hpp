@@ -38,7 +38,7 @@ namespace Classics
                 
                 private:
                     std::vector<rl::Vector2> _body;
-                    Direction _dir;
+                    rl::Vector2 _dir;
                     int _length;
             };
 
@@ -53,7 +53,9 @@ namespace Classics
             };
 
             double curr_time;
-            std::vector<rl::Sound> sounds;
+
+            rl::Sound foodEatSound;
+            rl::Sound deathSound;
 
             Snake snake;
             Fruit fruit;

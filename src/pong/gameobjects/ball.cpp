@@ -18,7 +18,7 @@ namespace Classics
 
         if(pos.y < gameBox.y || rect.y + rect.height > gameBox.y + boxHeight)
         {
-            sounds[1].Play();
+            wallHitSound.Play();
             _speed.y *= -1;
         }
 
@@ -34,14 +34,14 @@ namespace Classics
         return;
     }
 
-    bool PongGame::Ball::Out() const noexcept { return (OutLeft() || pos.x > gameBox.x + boxWidth); }
-    bool PongGame::Ball::OutLeft() const noexcept { return (pos.x < gameBox.x); }
+    bool PongGame::Ball::IsOut() const noexcept { return (IsOutLeft() || pos.x > gameBox.x + boxWidth); }
+    bool PongGame::Ball::IsOutLeft() const noexcept { return (pos.x < gameBox.x); }
 
     void PongGame::Ball::Collision(const PongGame::Paddle& paddle) noexcept
     {
         if(rect.CheckCollision(paddle.rect))
         {
-            sounds[0].Play();
+            paddleHitSound.Play();
             _speed.x *= -1;
         }
 
