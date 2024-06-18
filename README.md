@@ -6,18 +6,25 @@ Games currently in the collection:
 - [Snake](#Snake)
 - [Pong](#Pong)
 - [Space Invaders](#Space-Invaders)
+- [Flappy Bird](#Flappy-Bird)
 
-# Snake
+# Screenshots
+
+## Snake
 
 ![screenshot](screenshots/snake.png)
 
-# Pong
+## Pong
 
 ![screenshot](screenshots/pong.png)
 
-# Space Invaders
+## Space Invaders
 
 ![screenshot](screenshots/spaceinvaders.png)
+
+## Flappy Bird
+
+![screenshot](screenshots/flappybird.png)
 
 # Credits
 
