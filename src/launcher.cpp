@@ -11,7 +11,7 @@ int main()
     int GAMES_FONT_SIZE = 20;
     float SPACING = 2.0f;
 
-    int selected = 0;
+    std::size_t selected = 0;
     std::vector<std::unique_ptr<cl::Program>> games;
     std::vector<rl::Text> menuOptions;
     rl::Font font = ::GetFontDefault();
@@ -20,6 +20,7 @@ int main()
     games.emplace_back(std::make_unique<cl::SnakeGame>(window));
     games.emplace_back(std::make_unique<cl::PongGame>(window));
     games.emplace_back(std::make_unique<cl::InvadersGame>(window));
+    games.emplace_back(std::make_unique<cl::FlappyBirdGame>(window));
 
     menuOptions.reserve(games.size() + 1);
 

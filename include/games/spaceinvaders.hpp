@@ -32,7 +32,6 @@ namespace Classics
             static double tick;
             static float invadersSpeed;
 
-            static inline rl::Vector4 gameBounds {gameBox.x + boxThickness, gameBox.y + boxThickness, offset + gameBox.width - boxThickness * 2, offset + gameBox.height - boxThickness * 2};
             static inline rl::Vector2 bulletDim {4, 12};
             static inline rl::Vector2 blockDim {4, 4};
 

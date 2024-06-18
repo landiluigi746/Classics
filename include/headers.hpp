@@ -5,6 +5,7 @@
 #include <games/snake.hpp>
 #include <games/pong.hpp>
 #include <games/spaceinvaders.hpp>
+#include <games/flappybird.hpp>
 
 namespace cl = Classics;
 

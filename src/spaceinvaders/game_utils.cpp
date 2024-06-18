@@ -39,7 +39,6 @@ namespace Classics
 
     void InvadersGame::InvadersBehavior()
     {
-        int rng;
         rl::Vector2 first_pos = invaders.front().pos;
         rl::Vector2 last_pos = invaders.front().pos;
 
@@ -132,7 +131,7 @@ namespace Classics
         {
             rng = rand() % 100;
 
-            if(rng < 2 + level + (1 / invaders.size()))
+            if((float)rng < (float)2 + level + (1 / invaders.size()))
             {
                 invadersBullets.emplace_back(invader.pos.x + textureSize / 2, invader.pos.y + textureSize, Direction::DOWN);
                 shootSound.Play();

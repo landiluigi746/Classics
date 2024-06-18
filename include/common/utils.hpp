@@ -19,7 +19,8 @@ namespace Classics
     constexpr int spacing = 2;
 
     inline rl::Rectangle gameBox {offset - boxThickness, offset - boxThickness, boxWidth + boxThickness * 2, boxHeight + boxThickness * 2};
-    inline rl::Vector2 center{gameBox.x + gameBox.width / 2, gameBox.y + gameBox.height / 2};
+    inline rl::Vector4 gameBounds {gameBox.x + boxThickness, gameBox.y + boxThickness, offset + gameBox.width - boxThickness * 2, offset + gameBox.height - boxThickness * 2};
+    inline rl::Vector2 center{(gameBounds.x + gameBounds.z) / 2, (gameBounds.y + gameBounds.w) / 2};
 
     enum class Direction
     {

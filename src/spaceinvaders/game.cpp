@@ -137,7 +137,6 @@ namespace Classics
 
         while(!IsKeyDown(KEY_Q))
         {
-
             p_window.BeginDrawing();
 
             p_window.ClearBackground(p_bgColor);
