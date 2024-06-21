@@ -7,6 +7,7 @@ Games currently in the collection:
 - [Pong](#Pong)
 - [Space Invaders](#Space-Invaders)
 - [Flappy Bird](#Flappy-Bird)
+- [Dino](#Dino)
 
 # Screenshots
 
@@ -25,6 +26,10 @@ Games currently in the collection:
 ## Flappy Bird
 
 ![screenshot](screenshots/flappybird.png)
+
+## Dino
+
+![screenshot](screenshots/dino.png)
 
 # Credits
 
