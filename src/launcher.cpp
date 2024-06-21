@@ -21,6 +21,7 @@ int main()
     games.emplace_back(std::make_unique<cl::PongGame>(window));
     games.emplace_back(std::make_unique<cl::InvadersGame>(window));
     games.emplace_back(std::make_unique<cl::FlappyBirdGame>(window));
+    games.emplace_back(std::make_unique<cl::DinoGame>(window));
 
     menuOptions.reserve(games.size() + 1);
 
@@ -61,7 +62,8 @@ int main()
 
             font.DrawText(title.GetText(), window.GetWidth() / 2 - font.MeasureText(title.GetText(), TITLE_FONT_SIZE, SPACING).x / 2, OFFSET + 10, title.GetFontSize(), SPACING, textColor);
 
-            for(auto i = 0; i < menuOptions.size(); i++)
+            auto size = menuOptions.size();
+            for(size_t i = 0; i < size; i++)
             {
                 if(i == selected)
                 {
@@ -76,7 +78,7 @@ int main()
 
                 int textWidth = font.MeasureText(menuOptions[i].GetText(), GAMES_FONT_SIZE, SPACING).x;
                 int optionX = window.GetWidth() / 2 - textWidth / 2;
-                int optionY = window.GetHeight() / 2 - (OFFSET * 2 + TITLE_FONT_SIZE) + i * (GAMES_FONT_SIZE + OFFSET);
+                int optionY = window.GetHeight() / 2 - (OFFSET * 2 + TITLE_FONT_SIZE) + i * (GAMES_FONT_SIZE + OFFSET / 2);
 
                 rectangleColor.DrawRectangle(optionX, optionY, textWidth, GAMES_FONT_SIZE);
                 font.DrawText(menuOptions[i].GetText(), optionX, optionY, GAMES_FONT_SIZE, SPACING, textColor);

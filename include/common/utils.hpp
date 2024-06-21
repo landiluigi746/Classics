@@ -31,12 +31,12 @@ namespace Classics
     };
 
     inline rl::Vector2 GetRandomVector2(int minX, int maxX, int minY, int maxY)
-    { return {::GetRandomValue(minX, maxX), ::GetRandomValue(minY, maxY)}; }
+    { return {(float)::GetRandomValue(minX, maxX), (float)::GetRandomValue(minY, maxY)}; }
 
     inline void Wait(uint32_t milliseconds)
     {
         std::clock_t start = std::clock();
-        while(std::clock() - start < milliseconds);
+        while(std::clock() - start < (clock_t)milliseconds);
         return;
     }
 } // namespace Classics

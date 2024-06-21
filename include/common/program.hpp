@@ -34,15 +34,15 @@ namespace Classics
             virtual void LoadingScreen()
             {
                 rl::Font font = ::GetFontDefault();
-                rl::Text loading_text{"Loading " + _name, 28, rl::Color::RayWhite(), font, spacing };
+                rl::Text loading_text{"Starting " + _name, 28, rl::Color::RayWhite(), font, spacing };
 
                 auto textWidth = font.MeasureText(loading_text.text, loading_text.fontSize, spacing).x;
 
                 Vector2 starting_pos{windowWidth / 2 - textWidth / 2, windowHeight / 2};
 
-                rl::Rectangle progress_bar{{starting_pos.x, starting_pos.y + 28}, {0, 28}};
+                rl::Rectangle progress_bar{{windowWidth / 2 - 20, starting_pos.y + 28}, {0, 28}};
 
-                while(progress_bar.width < textWidth && !p_window.ShouldClose())
+                while(progress_bar.width < 40 && !p_window.ShouldClose())
                 {
                     p_window.BeginDrawing();
 
@@ -50,7 +50,7 @@ namespace Classics
                         p_window.ClearBackground(rl::Color::Black());
                         loading_text.Draw(starting_pos.x, p_window.GetHeight() / 2 - 28);
                         progress_bar.Draw(rl::Color::RayWhite());
-                        progress_bar.width += 2.0f;
+                        progress_bar.width += 7.0f;
                     }
 
                     p_window.EndDrawing();

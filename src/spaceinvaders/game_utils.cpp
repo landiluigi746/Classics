@@ -73,7 +73,7 @@ namespace Classics
             }
         }
 
-        if(specialInvader.pos.x >= 0 & playerBullet.CheckCollision(specialInvader.GetRect()))
+        if(specialInvader.pos.x >= 0 && playerBullet.CheckCollision(specialInvader.GetRect()))
         {
             player.GainScore(specialInvader.GetScore());
             invaderKilledSound.Play();

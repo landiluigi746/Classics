@@ -33,7 +33,7 @@ namespace Classics
                 return;
             }
 
-            virtual rl::Rectangle GetRect() const { return rl::Rectangle{pos.x, pos.y, texture.width, texture.height}; }
+            virtual rl::Rectangle GetRect() const { return rl::Rectangle{pos.x, pos.y, (float)texture.width, (float)texture.height}; }
 
             rl::Texture2D texture;
     };
