@@ -12,7 +12,7 @@ namespace Classics
         public:
             InvadersGame(rl::Window& window):
                 Program{window, "Space Invaders", rl::Color::Black()},
-                level{1}
+                level{0}
             {}
 
         private:

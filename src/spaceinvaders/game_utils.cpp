@@ -7,6 +7,8 @@ namespace Classics
 {
     void InvadersGame::InitLevel()
     {
+        ++level;
+
         invadersSpeed = defaultInvadersSpeed;
 
         invaders.clear();
@@ -69,6 +71,7 @@ namespace Classics
                 invaderKilledSound.Play();
                 playerBullet.Reset();
                 invader = invaders.erase(invader);
+                if(invaders.size() <= 0) return;
                 invadersSpeed += 2 / invaders.size();
             }
         }
