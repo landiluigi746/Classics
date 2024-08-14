@@ -55,4 +55,6 @@ group ""
 group "Games"
 group ""
 
+include "Common"
+
 include "Launcher"

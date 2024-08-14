@@ -1,22 +1,31 @@
 #include "raylib-cpp.hpp"
 
+#include "SceneManager.hpp"
+#include "MenuScene.hpp"
+#include "Config.hpp"
+
+namespace Classics
+{
+	static void RunLauncher()
+	{
+		Window::Init();
+		SceneManager::Init();
+
+		g_Window->SetTargetFPS(60);
+		g_SceneManager->AddScene<MenuScene>();
+
+		while (g_SceneManager->IsCurrentSceneRunning())
+			g_SceneManager->UpdateDrawCurrentScene();
+
+		Window::Shutdown();
+		SceneManager::Shutdown();
+
+		return;
+	}
+}
+
 int main()
 {
-	const int screenWidth = 800;
-	const int screenHeight = 450;
-
-	raylib::Window window(screenWidth, screenHeight, "raylib [core] example - basic window");
-	window.SetTargetFPS(60);
-
-	while (!window.ShouldClose())
-	{
-		window.BeginDrawing();
-
-		window.ClearBackground(RAYWHITE);
-		::DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
-
-		window.EndDrawing();
-	}
-
+	Classics::RunLauncher();
 	return 0;
 }

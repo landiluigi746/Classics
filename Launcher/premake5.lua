@@ -25,7 +25,9 @@ project "Launcher"
     }
     files { "Source/**.hpp", "Source/**.cpp" }
 
-    includedirs { "Source" }
+    includedirs { "Source", "%{wks.location}/Common/Source" }
+
+    links { "Common" }
 
     link_raylib()
     include_raylib_cpp()
