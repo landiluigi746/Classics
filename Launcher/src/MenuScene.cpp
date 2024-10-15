@@ -5,8 +5,9 @@
 #include "SnakeScene.hpp"
 #include "PongScene.hpp"
 
+#include "UI.hpp"
+
 #include <raylib.h>
-#include <imgui.h>
 
 namespace Classics
 {
@@ -22,16 +23,23 @@ namespace Classics
 		ImGui::SetNextWindowSize(ImVec2{ GetScreenWidth() - 128.0f, GetScreenHeight() - 128.0f });
 
 		ImGui::Begin("Classics Menu", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
+		ImGui::SetWindowFontScale(2.0f);
 
-		if (ImGui::Button("Snake"))
+		CENTER(ImGui::Text("Classics"), 0.0f, 20.0f, 20.0f);
+
+		ImGui::PushStyleColor(ImGuiCol_Button, ImGui::GetStyleColorVec4(ImGuiCol_WindowBg));
+
+		if (CENTER(ImGui::Button("Snake"), 0.0f, 20.0f, 20.0f))
 			m_SceneManager.SwitchToScene<SnakeScene>();
 
-		if (ImGui::Button("Pong"))
+		if (CENTER(ImGui::Button("Pong"), 0.0f, 20.0f, 20.0f))
 			m_SceneManager.SwitchToScene<PongScene>();
 
-		if (ImGui::Button("Space Invaders"));
+		if (CENTER(ImGui::Button("Space Invaders"), 0.0f, 20.0f, 20.0f));
 
-		if (ImGui::Button("Flappy Bird"));
+		if (CENTER(ImGui::Button("Flappy Bird"), 0.0f, 20.0f, 20.0f));
+
+		ImGui::PopStyleColor();
 
 		ImGui::End();
 	}
