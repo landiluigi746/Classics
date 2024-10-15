@@ -1,0 +1,13 @@
+# vscode
+.vscode
+
+# Visual Studio stuff
+.vs
+*.sln
+*.vcxproj
+*.vcxproj.user
+*.vcxproj.filters
+
+# Output directories
+Binaries
+Objects
