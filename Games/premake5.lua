@@ -13,12 +13,14 @@ function gameProject(game)
 
         vpaths
         {
-            ["Header Files/*"] = { dir .. "**.hpp" },
-            ["Source Files/*"] = { dir .. "**.cpp" }
+            ["Header Files/*"] = { dir .. "src/**.hpp" },
+            ["Source Files/*"] = { dir .. "src/**.cpp" }
         }
-        files { dir .. "**.hpp", dir .. "**.cpp" }
+        files { dir .. "src/**.hpp", dir .. "src/**.cpp" }
+        
+        defines { string.upper(game) .. "_ASSETS_PATH=\"" .. "Games/" .. game .. "/" .. "assets/\"" }
 
-        includedirs { dir }
+        includedirs { dir .. "src" }
         
         link_raylib()
         link_imgui()
@@ -32,7 +34,7 @@ function linkgame(game)
     games_dir = "%{wks.location}/Games"
     print(game)
     links { game }
-    includedirs { games_dir .. "/" .. game }
+    includedirs { games_dir .. "/" .. game .. "/src" }
 end
 
 function link_Games()

@@ -28,6 +28,7 @@ namespace Classics
 		CENTER(ImGui::Text("Classics"), 0.0f, 20.0f, 20.0f);
 
 		ImGui::PushStyleColor(ImGuiCol_Button, ImGui::GetStyleColorVec4(ImGuiCol_WindowBg));
+		ImGui::SetWindowFontScale(1.5f);
 
 		if (CENTER(ImGui::Button("Snake"), 0.0f, 20.0f, 20.0f))
 			m_SceneManager.SwitchToScene<SnakeScene>();
